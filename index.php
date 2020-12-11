@@ -28,7 +28,10 @@ else {
 		?>
 
 	<br>
-	<a href="filmes_create.php" >Adicionar Filme</a>
+
+	<a  href="filmes_create.php" ><h3>Adicionar Filme</h3></a>
+	<a href="filmes_edit.php" ><h3>Editar Filme</h3></a>
+	<a href="filmes_update.php" ><h3>Editar Filme</h3></a>
 	</body>
 	</html>
 	
