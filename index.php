@@ -26,9 +26,12 @@ else {
 		}
 		$stm->close();
 		?>
+
 	<br>
+	<a href="filmes_create.php" >Adicionar Filme</a>
 	</body>
 	</html>
+	
 
 	<?php
 }//end if - if($con->connect_errno!=0)
