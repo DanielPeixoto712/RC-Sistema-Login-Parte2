@@ -2,7 +2,7 @@
 if ($_SERVER['REQUEST_METHOD']=='POST') {
 	$nome="";
 	$nacionalidade="";
-	$data_nascimento="";
+
 	
 
 
@@ -15,9 +15,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 	if (isset($_POST['nacionalidade'])) {
 		$sinopse=$_POST["nacionalidade"];
 	}
-	if (isset($_POST['data_nascimento'])) {
-		$data_lancamento=$_POST['data_nascimento'];
-	}
+	
+
 	$con=new mysqli("localhost","root", "","projeto-filmes");
 
 	if ($con->connect_errno!=0) {
@@ -25,15 +24,15 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 		exit;
 	}
 	else{
-		$sql="update into atores (nome, nacionalidade, data_nascimento) values (?,?,?,?,?)";
+		$sql="update into realizadores (nome, nacionalidade) values (?,?)";
 		$stm=$con->prepare($sql);
 
 			
 			if ($stm!=false) {
-				$stm->bind_param("ssssi", $nome, $nacionalidade, $data_nascimento);
+				$stm->bind_param("ssssi", $nome, $nacionalidade);
 				$stm->execute();
 				$stm->close();
-				echo '<script>alert("Filme alterado com sucesso!!")</script>';
+				echo '<script>alert("Realizador alterado com sucesso!!")</script>';
 				echo "Aguarde um momento. A reencaminhar página";
 				header ('refresh:5, url=index.php');
 			}

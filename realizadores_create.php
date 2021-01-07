@@ -1,7 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD']=="POST") {
 	$nome="";
-	$data_nascimento="";
 	$nacionalidade="";
 	
 
@@ -11,13 +10,10 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
 	else{
 		echo '<script>alert("É obrigatório o preenchimento do nome.");</script>';
 	}
-	if (isset($_POST['data_nascimento'])) {
-		$data_nascimento=$_POST["data_nascimento"];
+	if (isset($_POST['nacionalidade'])) {
+		$data_nascimento=$_POST["nacionalidade"];
 	}
 	
-	if (isset($_POST['nacionalidade'])) {
-		$nacionalidade=$_POST['nacionalidade'];
-	}
 
 
 	$con=new mysqli("localhost", "root", "", "projeto-filmes");
@@ -27,15 +23,15 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
 		exit;
 	}
 	else{
-		$sql="insert into atores (nome, data_nascimento, nacionalidade) values (?,?,?)";
+		$sql="insert into realizadores (nome, nacionalidade) values (?,?)";
 		$stm=$con->prepare($sql);
 		if ($stm!=false) {
 			
-			$stm->bind_param('sss', $nome, $data_nascimento, $nacionalidade);
+			$stm->bind_param('ss', $nome, $nacionalidade);
 			$stm->execute();
 			$stm->close();
 
-			echo '<script>alert("Ator adicionado com sucesso")</script>';
+			echo '<script>alert("Realizador adicionado com sucesso")</script>';
 			echo "Aguarde um momento. A reencaminhar página";
 			header ("refresh:5;url=index.php");
 		}
@@ -52,13 +48,12 @@ else{
 	<html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Adicionar Atores</title>
+		<title>Adicionar Realizadores</title>
 	</head>
 	<body>
-		<h1>Adicionar Atores</h1>
-		<form action="atores_create.php" method="POST">
+		<h1>Adicionar Realizadores</h1>
+		<form action="realizadores_create.php" method="POST">
 		<label>Nome</label><input type="text" name="nome" required><br>
-		<label>Data_Nascimento</label><input type="date" name="data_nascimento"><br>
 		<label>Nacionalidade</label><input type="text" name="nacionalidade"><br>
         <input type="submit" name="enviar">
 	</form>

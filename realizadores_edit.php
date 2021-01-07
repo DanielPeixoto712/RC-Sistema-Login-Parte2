@@ -1,20 +1,20 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=="GET"){
-	if (isset($_GET['ator'])&& is_numeric($_GET['ator'])) {
-		$idAtor = $_GET['ator'];
+	if (isset($_GET['realizador'])&& is_numeric($_GET['realizador'])) {
+		$idRealizador = $_GET['realizador'];
 		$con=new mysqli("localhost","root", "","projeto-filmes");
 
 		if ($con->connect_errno!=0) {
 			echo "<h1>Ocorreu um erro no acesso á base de dados.<br>".$con->connect_error."</h1>";
 			exit();
 		}
-		$sql="Select * from atores where id_ator=?";
+		$sql="Select * from realizadores where id_realizador=?";
 		$stm=$con->prepare($sql);
 		if ($stm!=false) {
-			$stm->bind_param("i", $idAtor);
+			$stm->bind_param("i", $idRealizador);
 			$stm->execute();
 			$res=$stm->get_result();
-			$ator=$res->fetch_assoc();
+			$realizador=$res->fetch_assoc();
 			$stm->close();
 		}
 		?>
@@ -22,13 +22,12 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 		<html>
 		<head>
 			<meta charset="ISO-8859-1">
-			<title>Editar Atores</title>
-            <h1>Editar Atores</h1>
+			<title>Editar Realizadores</title>
+            <h1>Editar Realizadores</h1>
         </head>
-			<form action="atores_update.php" method="POST">
-		<label>Nome</label><input type="text" name="nome" required value="<?php echo $ator['nome']; ?>"><br>
-		<label>Data Nascimento</label><input type="date" name="data_nascimento" value="<?php echo $ator['data_nascimento'];?>"><br>
-		<label>Nacionalidade</label><input type="text" name="nacionalidade" value="<?php echo $ator['nacionalidade'];?>"><br>
+			<form action="realizadores_update.php" method="POST">
+		<label>Nome</label><input type="text" name="nome" required value="<?php echo $realizador['nome']; ?>"><br>
+		<label>Nacionalidade</label><input type="text" name="nacionalidade" value="<?php echo $realizador['nacionalidade'];?>"><br>
         <input type="submit" name="enviar">
 	</form>
 	</body>
