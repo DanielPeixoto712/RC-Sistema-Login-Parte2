@@ -1,4 +1,16 @@
 <?php
+
+session_start();
+if (!isset($SESSION['login'])) {
+	$_SESSION['login']="incorreto";
+}
+
+if ($_SESSION['login']=="correto" && isset($_SESSION['login'])) {
+	//aqui colocmos o conteudo da página
+
+
+
+
 $con=new mysqli("localhost","root", "","projeto-filmes");
 if($con->connect_errno!=0){
 	echo "Ocorreu um erro no acesso á base de dados".$con->connect_error;
@@ -73,44 +85,9 @@ else {
 			echo "<br>";
 
 					}
-
-		$stm->close();
-		}
-		?>
-		<a  href="realizadores_create.php" ><h4>Adicionar Realizador</h4></a>
-
-
-	</body>
-	</html>
-	
-
-	<?php
-}//end if - if($con->connect_errno!=0)
-?>
-
-<?php
-session_start();
-$con=new mysqli("localhost","root", "","projeto-filmes");
-if($con->connect_errno!=0){
-	echo "Ocorreu um erro no acesso á base de dados".$con->connect_error;
-	exit;
-}
-
-else{
-	if(!isset($_SESSION['login'])){
-		$_SESSION['login']="incorreto";
-}
-
-if($_SESSION['login']=="correto"){
-	?>
-	<!DOCTYPE html>
-	<html>
-	<head>
-		<meta charset="utf-8">
-		<title>filmes</title>
-	</head>
-	<body>
-	<h1>Lista de filmes</h1>
+					?>
+					<a  href="realizadores_create.php" ><h4>Adicionar Realizador</h4></a>
+					<h1>Lista de filmes</h1>
 	<?php
 	$stm=$con->prepare('select * from filmes');
 	$stml->execute();
@@ -122,19 +99,32 @@ if($_SESSION['login']=="correto"){
 		echo '</a>';
 		echo '<br>';
 	}
-	$stm->close();
+
 	?>
 	<br>
 	<a href="filmes_create.php">Adicionar filme</a>
 
-	<?php
+
+		$stm->close();
+		
+		?>
+		
+
+
+	</body>
+	</html>
+	
+
+	
+
+
+<?php
+}
 }
 else{
 	echo 'Para entrar nesta página necessita de efetuar <a href="login.php">login</a>';
 	header('refresh:2;url=login.php');
-	
-}//end if - if($con->connect_errno!=0)
+
 }
+
 ?>
-	</body>
-	</html>

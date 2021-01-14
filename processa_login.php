@@ -2,29 +2,43 @@
 session_start();
 if ($_SERVER['REQUEST_METHOD']=="POST") {
 	
-	if ($_POST['user_name'])&& isset($_POST['password'])) {
+	if (isset($_POST['user_name'])&& isset($_POST['password'])) {
 		$utilizador=$_POST['user_name'];
 		$password=$_POST['password'];
 
+
+
 			$con=new mysqli("localhost", "root", "","projeto-filmes");
 
-			if ($con->connect_erno!=0) {
+			if ($con->connect_errno!=0) {
 			echo "Ocorreu um erro no acesso á base de dados.<br>" .$con->connect_error;
 			exit;
+
 			}
+
 			else{
 				$sql="Select * from utilizadores where user_name=? and password=?";
-				$stm=$con->prepare($sql):
+				$stm=$con->prepare($sql);
 				if ($stm!=false) {
-					$stm->bind_param("ss"$utilizador,$password);
+					$stm->bind_param("ss", $utilizador,$password);
 					$stm->execute();
 					$res=$stm->get_result();
-					if ($res->num_rows==!) {
-						$_SESION['login']="Correto";
+				
+					
+
+					if ($res->num_rows==1) {
+						$_SESSION['login']="correto";
+						echo "Login Correto";
+
 					}
+
+
 					else{
-						$_SESION['login']="incorreto";
+						$_SESSION['login']="incorreto";
+						echo "Login Incorreto";
+
 					}
+
 					header("refresh:5;url=index.php");
 					}
 					else{
@@ -33,5 +47,4 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
 					}
 				}
 			}
-	}
-}
+		}
