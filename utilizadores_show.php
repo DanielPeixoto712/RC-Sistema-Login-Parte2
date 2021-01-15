@@ -1,12 +1,6 @@
 <?php
 
 
-
-
-
-
-
-
 session_start();
 
 if (!isset($_SESSION['login'])) {
@@ -15,17 +9,19 @@ if (!isset($_SESSION['login'])) {
 if ($_SESSION['login']=="correto" && isset($_SESSION['login'])) {
 	//aqui colocamos o conteudo
 
-if($_SERVER['REQUEST_METHOD']=="GET"){
 
 
-	if (!isset($_GET['ator']) || !is_numeric($_GET['ator'])) {
-		echo '<script>alert("Erro ao abrir livro");</script>';
+	if($_SERVER['REQUEST_METHOD']=="GET"){
+
+
+	if (!isset($_GET['utilizador']) || !is_numeric($_GET['utilizador'])) {
+		echo '<script>alert("Erro ao abrir utilizador");</script>';
 		echo 'Aguarde um momento. A reencaminhar página';
 		header("refresh:5; url=index.php");
 		exit();
 
 	}
-	$idAtor=$_GET['ator'];
+	$idUtilizador=$_GET['utilizador'];
 	$con=new mysqli("localhost", "root", "","projeto-filmes");
 
 	if($con->connect_errno!=0){
@@ -33,13 +29,13 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 		exit;
 	}
 	else{
-		$sql='select * from atores where id_ator = ?';
+		$sql='select * from utilizadores where id_utilizador = ?';
 		$stm = $con->prepare ($sql);
 		if ($stm!=false) {
-			$stm->bind_param("i", $idAtor);
+			$stm->bind_param("i", $idUtilizador);
 			$stm->execute();
 			$res=$stm->get_result();
-			$ator = $res->fetch_assoc();
+			$utilizador = $res->fetch_assoc();
 			$stm->close();
 		}
 		else{
@@ -60,26 +56,28 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 	<title>Detalhes</title>
 </head>
 <body>
-	<h1>Detalhes do Ator</h1>
+	<h1>Detalhes do utilizador</h1>
 
 <?php
-if (isset($ator)) {
+if (isset($utilizador)) {
 	echo"<br>";
-	echo utf8_encode( $ator["nome"]);
+	echo utf8_encode( $utilizador["nome"]);
 	echo "<br>";
-	echo utf8_encode( $ator["nacionalidade"]);
+	echo utf8_encode( $utilizador["user_name"]);
 	echo "<br>";
-	echo $ator["data_nascimento"];
-
+	echo $utilizador["email"];
+	echo "<br>";
+	echo $utilizador["password"];
+	echo "<br>";
+	
 
 }
 else{
-	echo "<h2>Parece que o ator selecionado não existe.<br>Confirme a sua seleção</h2>";
+	echo "<h2>Parece que o utilizador selecionado não existe.<br>Confirme a sua seleção</h2>";
 }
 ?>
 </body>
 </html>
-
 <?php
 }//login
 else{
@@ -87,5 +85,5 @@ else{
 	header('refresh:2;url=login.php');
 }
 
-?>
 
+?>

@@ -45,7 +45,7 @@ if ($_SESSION['login']=="correto" && isset($_SESSION['login'])) {
 	
 	<a  href="filmes_create.php" ><h4>Adicionar Filme</h4></a>
 	
-
+<hr>
 
 	<h1>Lista de Atores</h1>
 		<?php
@@ -69,7 +69,7 @@ if ($_SESSION['login']=="correto" && isset($_SESSION['login'])) {
 		?>
 		<a  href="atores_create.php" ><h4>Adicionar Ator</h4></a>
 
-
+<hr>	
 		<h1>Lista de Realizadores</h1>
 		<?php
 		$stm=$con->prepare('select * from realizadores');
@@ -89,9 +89,32 @@ if ($_SESSION['login']=="correto" && isset($_SESSION['login'])) {
 		}
 					?>
 					<a  href="realizadores_create.php" ><h4>Adicionar Realizador</h4></a>
+
+<hr>
+
+
+					<h1>Lista de Utilizadores</h1>
+		<?php
+		$stm=$con->prepare('select * from utilizadores');
+		if ($stm!=false) {
+			$stm->execute();
+			$res=$stm->get_result();
+			while($resultado = $res->fetch_assoc()){
+				echo '<a href="utilizadores_show.php?utilizador='.$resultado['id_utilizador'].'">';
+				echo "<h4>".$resultado["nome"]."</h4>";
+				echo "</a>";
+				echo '<a href="utilizadores_edit.php?utilizador='.$resultado['id_utilizador'].'"><li>Editar</li></a>';
+				echo "<br>";
+				echo '<a href="utilizadores_delete.php?utilizador='.$resultado['id_utilizador'].'"><li>Eliminar</li></a>';
+				echo "<br>";
+
+			}
+		}
+					?>
+					<a  href="utilizadores_create.php" ><h4>Adicionar Utilizadores</h4></a>
 					
 
-	
+	<hr>
 	
 
 <?php

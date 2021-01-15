@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 		exit();
 
 	}
-	$idFilme=$_GET['realizador'];
+	$idRealizador=$_GET['realizador'];
 	$con=new mysqli("localhost", "root", "","projeto-filmes");
 
 	if($con->connect_errno!=0){
@@ -63,7 +63,7 @@ if (isset($realizador)) {
 	echo"<br>";
 	echo utf8_encode( $realizador["nome"]);
 	echo "<br>";
-	echo $nacionalidade["nacionalidade"];
+	echo $realizador["nacionalidade"];
 	echo "<br>";
 
 }
