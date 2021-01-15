@@ -1,5 +1,16 @@
 <?php
-if ($_SERVER['REQUEST_METHOD']=='POST') {
+
+
+session_start();
+
+if (!isset($_SESSION['login'])) {
+	$_SESSION['login']="incorreto";
+}
+if ($_SESSION['login']=="correto" && isset($_SESSION['login'])) {
+	//aqui colocamos o conteudo
+
+
+	if ($_SERVER['REQUEST_METHOD']=='POST') {
 	$nome="";
 	$nacionalidade="";
 	$data_nascimento="";
@@ -46,3 +57,13 @@ else{
 	echo ("<h1>Houve um erro ao processar o seu pedido.<br> Dentro de segundos irá ser rencaminhado!</h1>");
 				header ("refresh:5; url= index.php");
 }
+
+
+}//login
+else{
+	echo 'Para entrar nesta página necessita de efetuar <a href="login.php">login</a>';
+	header('refresh:2;url=login.php');
+}
+
+
+?>

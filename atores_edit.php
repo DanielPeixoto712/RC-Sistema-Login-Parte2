@@ -1,4 +1,19 @@
 <?php
+
+
+session_start();
+
+if (!isset($_SESSION['login'])) {
+	$_SESSION['login']="incorreto";
+}
+if ($_SESSION['login']=="correto" && isset($_SESSION['login'])) {
+	//aqui colocamos o conteudo
+
+
+
+
+
+
 if($_SERVER['REQUEST_METHOD']=="GET"){
 	if (isset($_GET['ator'])&& is_numeric($_GET['ator'])) {
 		$idAtor = $_GET['ator'];
@@ -45,4 +60,25 @@ if($_SERVER['REQUEST_METHOD']=="GET"){
 		</html>
 	<?php
 }
+
+
+
+
+
+
+
+}//login
+else{
+	echo 'Para entrar nesta página necessita de efetuar <a href="login.php">login</a>';
+	header('refresh:2;url=login.php');
+}
+
+
+
+
+
+
+
+
+
 ?>

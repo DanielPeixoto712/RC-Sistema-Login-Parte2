@@ -1,4 +1,14 @@
 <?php
+
+
+session_start();
+
+if (!isset($_SESSION['login'])) {
+	$_SESSION['login']="incorreto";
+}
+if ($_SESSION['login']=="correto" && isset($_SESSION['login'])) {
+	//aqui colocamos o conteudo
+
 if($_SERVER['REQUEST_METHOD']=="GET"){
 	if (isset($_GET['realizador'])&& is_numeric($_GET['realizador'])) {
 		$idFilme = $_GET['realizador'];
@@ -41,4 +51,15 @@ else{
 	echo "<h1>Houve um erro ao processar o seu pedido!<br>Irá ser reencaminhado!</h1>";
 	header ("refresh:5; url=index.php");
 }
+
+	
+
+}//login
+else{
+	echo 'Para entrar nesta página necessita de efetuar <a href="login.php">login</a>';
+	header('refresh:2;url=login.php');
+}
+
+
+
 ?>
